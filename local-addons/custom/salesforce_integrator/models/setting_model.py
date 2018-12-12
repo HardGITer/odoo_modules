@@ -20,7 +20,6 @@ class SalesforceCustomers(models.Model):
 
     @api.model
     def create(self, values):
-        #q
         record = super(SalesforceCustomers, self).create(values)
         return record
 
@@ -44,16 +43,17 @@ class SalesForceImporter(models.Model):
     _logger = logging.getLogger('SalesForceImporter_logger')
     field_name = fields.Char(sring="salesforce connector")
     sales_force = None
+    data_dictionary = {}
 
     username = 'toni@mail.ru'
     password = 'Vasykrab123'
     security_token = 'spAsycjVt9iBA56mXwFxRuRoD'
 
-    def import_data(self):
-        data_dictionary = {}
-        data_dictionary["customers"] = self.env['salesforce.connector'].with_delay().add_customers_from_sales_force()
-        data_dictionary["orders"] = self.env['salesforce.connector'].with_delay().import_sale_orders()
+    def async_import_customers(self):
+        self.data_dictionary["customers"] = self.env['salesforce.connector'].with_delay().add_customers_from_sales_force()
 
+    def async_import_orders(self):
+        self.data_dictionary["orders"] = self.env['salesforce.connector'].with_delay().import_sale_orders()
     @api.multi
     def connect_to_salesforce(self):
         try:
