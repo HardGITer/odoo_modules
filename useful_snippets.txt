@@ -1,0 +1,4 @@
+for run odoo tests
+docker-compose run --rm web odoo -c /etc/odoo/odoo.conf --test-enable --update=students --stop-after-init
+
+docker-compose run --rm web pytest -s --odoo-database=TEST --odoo-log-level=debug_sql

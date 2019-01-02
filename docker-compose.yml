@@ -19,6 +19,7 @@ services:
       - odoo-web-data:/var/lib/odoo
       - ./local-addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
+
   db:
     image: postgres:10
     environment:
