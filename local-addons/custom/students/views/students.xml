@@ -21,8 +21,14 @@
         <field name="model">students.person</field>
         <field name="arch" type="xml">
             <form>
+            <sheet>
+                <h1>Async func:</h1>
+                <group>
+                    <button name="call_students_count" type="object" string="Calculate count of students" class="oe_highlight" icon="fa-refresh fa-2x" />
+                </group>
+            </sheet>
              <group>
-                <field name="name" string="Name" placeholder="Name" style=" max-width: 500px;  width: 500px"/>
+                <!--<field name="name" string="Name" placeholder="Name" style=" max-width: 500px;  width: 500px"/>-->
                 <field name="surname" string="Surame"  placeholder="Surname" style=" max-width: 500px;  width: 500px" />
                 <field name="age"   string="Age" style="max-width: 500px;  width: 500px" />
                  <!--<field name="count_books"   string="Count of books" style="max-width: 1150px;  width: 500px" />-->

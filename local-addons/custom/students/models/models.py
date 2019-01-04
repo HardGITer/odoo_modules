@@ -17,6 +17,7 @@ class Person(models.Model):
 
     books = fields.Many2many('students.book', 'rel_book')
 
+
     @api.model
     def create(self, values):
         if values['age'] < 18:
@@ -29,6 +30,23 @@ class Person(models.Model):
         for item in self:
             name = len(self.books)
             item.book_count = name
+
+    @api.multi
+    def call_students_count(self):
+        self.env['students.person'].with_delay().calculate_students_count()#count=33)
+        # self.env['students.person'].calculate_students_count(count=33)
+
+    @api.multi
+    @job
+    def calculate_students_count(self):#, count=1
+        count = 0
+        for item in self.env['students.person'].search([]):
+            time.sleep(3)
+            self._logger.info("student: " + str(item))
+            count += 1
+        self._logger.info("total count: " + str(count))
+        return count
+
 
 
 class Book(models.Model):
