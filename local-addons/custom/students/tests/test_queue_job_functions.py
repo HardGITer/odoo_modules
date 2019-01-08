@@ -1,7 +1,14 @@
 from odoo.tests import common
 from odoo.tests import tagged
+from datetime import datetime, timedelta
+import mock
 from odoo.addons.queue_job.job import (
     Job,
+    PENDING,
+    ENQUEUED,
+    STARTED,
+    DONE,
+    FAILED,
 )
 from odoo.addons.queue_job.exception import (
     NoSuchJobError,
@@ -56,3 +63,49 @@ class TestFunctions(common.TransactionCase):
         result = test_job.perform()
         self.assertEqual(result, 1)
         print('queue_job function passed test_execute')
+
+    def test_set_pending(self):
+        job_a = Job(self.env['students.person'].calculate_students_count)
+        job_a.set_pending(result='test')
+        self.assertEquals(job_a.state, PENDING)
+        self.assertFalse(job_a.date_enqueued)
+        self.assertFalse(job_a.date_started)
+        self.assertEquals(job_a.retry, 0)
+        self.assertEquals(job_a.result, 'test')
+        print('queue_job function passed test_set_pending')
+
+    def test_set_enqueued(self):
+        job_a = Job(self.env['students.person'].calculate_students_count)
+        datetime_path = 'odoo.addons.queue_job.job.datetime'
+        with mock.patch(datetime_path, autospec=True) as mock_datetime:
+            mock_datetime.now.return_value = datetime(2015, 3, 15, 16, 41, 0)
+            job_a.set_enqueued()
+        self.assertEquals(job_a.state, ENQUEUED)
+        self.assertEquals(job_a.date_enqueued, datetime(2015, 3, 15, 16, 41, 0))
+        self.assertFalse(job_a.date_started)
+
+    def test_set_started(self):
+        job_a = Job(self.env['students.person'].calculate_students_count)
+        datetime_path = 'odoo.addons.queue_job.job.datetime'
+        with mock.patch(datetime_path, autospec=True) as mock_datetime:
+            mock_datetime.now.return_value = datetime(2015, 3, 15, 16, 41, 0)
+            job_a.set_started()
+        self.assertEquals(job_a.state, STARTED)
+        self.assertEquals(job_a.date_started, datetime(2015, 3, 15, 16, 41, 0))
+
+    def test_set_done(self):
+        job_a = Job(self.env['students.person'].calculate_students_count)
+        datetime_path = 'odoo.addons.queue_job.job.datetime'
+        with mock.patch(datetime_path, autospec=True) as mock_datetime:
+            mock_datetime.now.return_value = datetime(2015, 3, 15, 16, 41, 0)
+            job_a.set_done(result='test')
+        self.assertEquals(job_a.state, DONE)
+        self.assertEquals(job_a.result, 'test')
+        self.assertEquals(job_a.date_done, datetime(2015, 3, 15, 16, 41, 0))
+        self.assertFalse(job_a.exc_info)
+
+    def test_set_failed(self):
+        job_a = Job(self.env['students.person'].calculate_students_count)
+        job_a.set_failed(exc_info='failed test')
+        self.assertEquals(job_a.state, FAILED)
+        self.assertEquals(job_a.exc_info, 'failed test')
