@@ -7,7 +7,3 @@ class Partner(models.Model):
         'library.book',
         'publisher_id',
         string='Published Books')
-    # highlighted_id = fields.Reference(
-    #     [('library.book', 'Book'), ('res.partner', 'Author')],
-    #     'Category Highlight',
-    # )

@@ -7,7 +7,7 @@
 
     'author': "Matvey",
 
-    'depends': ['book_example', 'mail'],
+    'depends': ['library_app', 'mail'],
 
     'application': False,
 

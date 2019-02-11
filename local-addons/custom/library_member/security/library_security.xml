@@ -1,5 +1,5 @@
 <odoo>
-<record id="book_example.library_group_user" model="res.groups">
+<record id="library_app.library_group_user" model="res.groups">
     <field name="name">Librarian</field>
 </record>
 </odoo>

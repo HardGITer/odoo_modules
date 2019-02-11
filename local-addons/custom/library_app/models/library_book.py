@@ -63,6 +63,8 @@ class Book(models.Model):
             remain = sum(terms) % 10
             check = 10 - remain if remain != 0 else 0
             return digits[-1] == check
+        else:
+            return False
 
     @api.multi
     def button_check_isbn(self):

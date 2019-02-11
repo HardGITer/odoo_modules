@@ -63,14 +63,12 @@ class Checkout(models.Model):
 
     @api.model
     def create(self, vals):
-        # Code before create: should use the `vals` dict
         if 'stage_id' in vals:
             Stage = self.env['library.checkout.stage']
             new_state = Stage.browse(vals['stage_id']).state
             if new_state == 'open':
                 vals['checkout_date'] = fields.Date.today()
         new_record = super().create(vals)
-        # Code after create: can use the `new_record` created
         if new_record.state == 'done':
             raise exceptions.UserError(
                 'Not allowed to create a checkout in the done state.')
@@ -78,7 +76,6 @@ class Checkout(models.Model):
 
     @api.multi
     def write(self, vals):
-        # Code before write: can use `self`, with the old values
         if 'stage_id' in vals:
             Stage = self.env['library.checkout.stage']
             new_state = Stage.browse(vals['stage_id']).state
@@ -87,7 +84,6 @@ class Checkout(models.Model):
             if new_state == 'done' and self.state != 'done':
                 vals['close_date'] = fields.Date.today()
         super().write(vals)
-        # Code after write: can use `self`, with the updated values
         return True
 
     member_image = fields.Binary(related='member_id.partner_id.image')
@@ -120,7 +116,6 @@ class Checkout(models.Model):
             checkout.stage_id = done_stage
         return True
 
-    # Ch 11 - Kanban views
     color = fields.Integer('Color Index')
     priority = fields.Selection(
         [('0', 'Low'),
