@@ -72,6 +72,18 @@ class Checkout(models.Model):
         compute='_compute_num_books',
         store=True)
 
+    @api.onchange('member_id')
+    def onchange_member_id(self):
+        today = fields.Date.today()
+        if self.request_date != today:
+            self.request_date = today
+            return {
+                'warning': {
+                    'title': 'Changed Request Date',
+                    'message': 'Request date changed to today.'
+                }
+            }
+
     @api.model
     def create(self, vals):
         if 'stage_id' in vals:
