@@ -1,85 +1,91 @@
 <?xml version="1.0"?>
 <odoo>
 
-  <record id="library_checkout_kanban" model="ir.ui.view">
-    <field name="model">library.checkout</field>
-    <field name="arch" type="xml">
+    <record id="library_checkout_kanban" model="ir.ui.view">
+        <field name="model">library.checkout</field>
+        <field name="arch" type="xml">
 
-<kanban default_group_by="stage_id" class="o_kanban_small_column" >
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
 
-  <field name="id" />
-  <field name="stage_id" />
-  <field name="color" />
-  <field name="kanban_state" />
-  <field name="priority" />
+                <field name="id"/>
+                <field name="stage_id"/>
+                <field name="color"/>
+                <field name="kanban_state"/>
+                <field name="priority"/>
 
-  <progressbar
-      field="kanban_state"
-      colors='{"done": "success", "blocked": "danger"}' />
+                <progressbar
+                        field="kanban_state"
+                        colors='{"done": "success", "blocked": "danger"}'/>
 
-  <templates>
-    <t t-name="kanban-box">
+                <templates>
+                    <t t-name="kanban-box">
 
-  <div t-attf-class="
-    oe_kanban_color_#{kanban_getcolor(record.color.raw_value)}
-    oe_kanban_global_click">
+                        <div t-attf-class="
+                            oe_kanban_color_#{kanban_getcolor(record.color.raw_value)}
+                            oe_kanban_global_click">
 
-      <div class="o_dropdown_kanban dropdown">
-          <a class="dropdown-toggle btn"
-             data-toggle="dropdown" role="button"
-            aria-label="Dropdown menu"
-            title="Dropdown menu"
-             href="#">
-            <span class="fa fa-ellipsis-v"/>
-          </a>
-          <div class="dropdown-menu" role="menu">
-            <t t-if="widget.editable">
-              <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
-            </t>
-            <t t-if="widget.deletable">
-              <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
-            </t>
-            <ul class="oe_kanban_colorpicker" data-field="color"/>
-          </div>
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle btn"
+                                   data-toggle="dropdown" role="button"
+                                   aria-label="Dropdown menu"
+                                   title="Dropdown menu"
+                                   href="#">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
 
-      </div>
+                            </div>
 
-      <div class="oe_kanban_body">
+                            <div class="oe_kanban_body">
 
-        <div>
-            <strong>
-            <a type="open"><field name="member_id" /></a>
-            </strong>
-        </div>
-        <ul>
-            <li><field name="user_id" /></li>
-            <li><field name="request_date" /></li>
-        </ul>
+                                <div>
+                                    <strong>
+                                        <a type="open">
+                                            <field name="member_id"/>
+                                        </a>
+                                    </strong>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <field name="user_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="request_date"/>
+                                    </li>
+                                </ul>
 
-      </div>
-      <div class="oe_kanban_footer">
-        <div class="oe_kanban_footer_left">
-            <field name="priority" widget="priority"/>
-            <field name="activity_ids" widget="kanban_activity"/>
-        </div>
-        <div class="oe_kanban_footer_right">
-            <field name="kanban_state" widget="kanban_state_selection"/>
-            <img t-att-src="kanban_image(
-              'library.checkout', 'member_image', record.id.raw_value)"
-              t-att-title="record.member_id.value"
-              t-att-alt="record.member_id.value"
-              width="24" height="24"
-              class="oe_kanban_avatar" />
-        </div>
-      </div>
-      <div class="oe_clear"/>
-  </div>
+                            </div>
+                            <div class="oe_kanban_footer">
+                                <div class="oe_kanban_footer_left">
+                                    <field name="priority" widget="priority"/>
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                                <div class="oe_kanban_footer_right">
+                                    <field name="kanban_state" widget="kanban_state_selection"/>
+                                    <img t-att-src="kanban_image(
+                                        'library.checkout', 'member_image', record.id.raw_value)"
+                                         t-att-title="record.member_id.value"
+                                         t-att-alt="record.member_id.value"
+                                         width="24" height="24"
+                                         class="oe_kanban_avatar"/>
+                                </div>
+                            </div>
+                            <div class="oe_clear"/>
+                        </div>
 
-    </t>
-  </templates>
+                    </t>
+                </templates>
 
-      </kanban>
+            </kanban>
 
-    </field>
-  </record>
+        </field>
+    </record>
 </odoo>
