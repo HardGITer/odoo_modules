@@ -16,6 +16,11 @@ class Book(models.Model):
          'Publication date must not be in the future.'),
     ]
 
+    @api.depends('publisher_id.country_id')
+    def _compute_publisher_country(self):
+        for book in self:
+            book.publisher_country_id = book.publisher_id.country_id
+
     name = fields.Char('Title', required=True, help='Book cover title')
     isbn = fields.Char('ISBN')
 
@@ -48,12 +53,6 @@ class Book(models.Model):
     publisher_id = fields.Many2one('res.partner', string='Publisher')
     author_ids = fields.Many2many('res.partner', string='Authors')
 
-    @api.constrains('isbn')
-    def _constrain_isbn_valid(self):
-        for book in self:
-            if book.isbn and not book._check_isbn():
-                raise ValidationError('%s is an invalid ISBN' % book.isbn)
-
     @api.multi
     def _check_isbn(self):
         self.ensure_one()
@@ -77,14 +76,15 @@ class Book(models.Model):
                 raise Warning('%s is an invalid ISBN' % book.isbn)
         return True
 
-    @api.depends('publisher_id.country_id')
-    def _compute_publisher_country(self):
-        for book in self:
-            book.publisher_country_id = book.publisher_id.country_id
-
     def _inverse_publisher_country(self):
         for book in self:
             book.publisher_id.country_id = book.publisher_country_id
 
     def _search_publisher_country(self, operator, value):
         return [('publisher_id.country_id', operator, value)]
+
+    @api.constrains('isbn')
+    def _constrain_isbn_valid(self):
+        for book in self:
+            if book.isbn and not book._check_isbn():
+                raise ValidationError('%s is an invalid ISBN' % book.isbn)

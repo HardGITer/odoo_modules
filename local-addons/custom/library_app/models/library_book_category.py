@@ -5,6 +5,7 @@ class BookCategory(models.Model):
     _name = 'library.book.category'
     _description = 'Book Category'
     _parent_store = True
+
     name = fields.Char(translate=True, required=True)
     parent_id = fields.Many2one(
         'library.book.category',
