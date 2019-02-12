@@ -53,7 +53,7 @@ class Checkout(models.Model):
     def onchange_member_id(self):
         today = fields.Date.today()
         if self.request_date != today:
-            self.request_date = fields.Date.today()
+            self.request_date = today
             return {
                 'warning': {
                     'title': 'Changed Request Date',
