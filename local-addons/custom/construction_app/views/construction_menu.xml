@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="construction_menu" name="Construction"/>
+
+    <act_window id="action_construction_product" name="Construction Products" res_model="construction.product" view_mode="tree,form"/>
+
+    <menuitem id="menu_construction_product" name="Product" action="action_construction_product" parent="construction_menu"/>/>
+
+</odoo>
