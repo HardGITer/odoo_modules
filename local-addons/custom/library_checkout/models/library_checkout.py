@@ -101,14 +101,13 @@ class Checkout(models.Model):
     def write(self, vals):
         if 'stage_id' not in vals:
             return super().write(vals)
-        else:
-            Stage = self.env['library.checkout.stage']
-            new_state = Stage.browse(vals['stage_id']).state
-            if new_state == 'open' and self.state != 'open':
-                vals['checkout_date'] = fields.Date.today()
-            if new_state == 'done' and self.state != 'done':
-                vals['close_date'] = fields.Date.today()
-            return super().write(vals)
+        Stage = self.env['library.checkout.stage']
+        new_state = Stage.browse(vals['stage_id']).state
+        if new_state == 'open' and self.state != 'open':
+            vals['checkout_date'] = fields.Date.today()
+        if new_state == 'done' and self.state != 'done':
+            vals['close_date'] = fields.Date.today()
+        return super().write(vals)
 
     @api.onchange('member_id')
     def onchange_member_id(self):
