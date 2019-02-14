@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="dye_company" model="res.company">
+            <field name="name">DYE Company</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="product_type">dye</field>
+        </record>
+
+        <record id="tile_company" model="res.company">
+            <field name="name">TILE Company</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="product_type">tile</field>
+        </record>
+
+        <record id="heater_company" model="res.company">
+            <field name="name">HEATER Company</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="product_type">heater</field>
+        </record>
+    </data>
+</odoo>

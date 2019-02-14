@@ -44,9 +44,9 @@
         <field name="model">construction.product</field>
         <field name="arch" type="xml">
             <search>
-                <filter name="filter_only_dye" string="Only Dye" domain="[('product_type','=','Dye')]"/>
-                <filter name="filter_only_tile" string="Only Tile" domain="[('product_type','=','Tile')]"/>
-                <filter name="filter_only_heater" string="Only Heater" domain="[('product_type','=','Heater')]"/>
+                <filter name="filter_only_dye" string="Only Dye" domain="[('product_type','=','dye')]"/>
+                <filter name="filter_only_tile" string="Only Tile" domain="[('product_type','=','tile')]"/>
+                <filter name="filter_only_heater" string="Only Heater" domain="[('product_type','=','heater')]"/>
             </search>
         </field>
     </record>

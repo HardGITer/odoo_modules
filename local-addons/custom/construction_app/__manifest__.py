@@ -13,9 +13,9 @@
         'views/construction_menu.xml',
         'views/product_view.xml',
         'views/company_view.xml',
+        'data/company_data.xml',
     ],
 
     'demo': [
-        'data/company_demo.xml'
     ]
 }

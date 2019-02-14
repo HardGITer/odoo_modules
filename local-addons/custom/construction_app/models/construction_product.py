@@ -27,3 +27,15 @@ class Product(models.Model):
     def write_off_product(self):
         for product in self:
             product.count_in_dock -= 1
+
+    @api.model
+    def create(self, vals):
+        if vals['price'] < 0:
+            vals['price'] = 0
+        return super(Product, self).create(vals)
+
+    @api.model
+    def write(self, vals):
+        # if vals['price'] < 0:
+        #     vals['price'] = 0
+        return super(Product, self).write(vals)
