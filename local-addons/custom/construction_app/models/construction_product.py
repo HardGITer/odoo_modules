@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from openerp.exceptions import ValidationError
 
 
 class Product(models.Model):
@@ -15,6 +16,7 @@ class Product(models.Model):
             product.product_type = product.supplier_company_id.product_type
             print(str(product.supplier_company_id.product_type))
 
+
     name = fields.Char('Product Name', required=True)
     technical_name = fields.Char('Product Technical Name', required=True)
     price = fields.Monetary('Price', 'currency_id')
@@ -28,14 +30,8 @@ class Product(models.Model):
         for product in self:
             product.count_in_dock -= 1
 
-    @api.model
-    def create(self, vals):
-        if vals['price'] < 0:
-            vals['price'] = 0
-        return super(Product, self).create(vals)
-
-    @api.model
-    def write(self, vals):
-        # if vals['price'] < 0:
-        #     vals['price'] = 0
-        return super(Product, self).write(vals)
+    @api.constrains('price')
+    def price_validation(self):
+        for product in self:
+            if product.price < 0:
+                raise ValidationError('''Price Can't be less hen 0.''')
