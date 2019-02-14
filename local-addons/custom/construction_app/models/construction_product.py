@@ -22,3 +22,8 @@ class Product(models.Model):
     supplier_company_id = fields.Many2one('res.company', string="Supplier")
     product_type = fields.Char(compute='_compute_type', readonly=True, store=True)
     count_in_dock = fields.Integer('Count Of Product In Dock', default=0)
+
+    @api.multi
+    def write_off_product(self):
+        for product in self:
+            product.count_in_dock -= 1

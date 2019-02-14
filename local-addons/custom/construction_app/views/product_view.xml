@@ -5,6 +5,12 @@
         <field name="model">construction.product</field>
         <field name="arch" type="xml">
             <form string="Product">
+                <header>
+                    <button name="write_off_product" class="oe_highlight" string="Write Off Product" type="object"
+                            groups="construction_app.construction_group_tile_seller,
+                             construction_app.construction_group_main_seller,
+                             construction_app.construction_group_manager" attrs="{'invisible': [('count_in_dock', '&lt;', 1)]}"/>
+                </header>
                 <group name="group_top">
                     <group name="group_left">
                         <field name="name"/>
