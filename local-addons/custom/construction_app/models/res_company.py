@@ -10,7 +10,6 @@ class Company(models.Model):
          ('dye', 'Dye')],
         'Product Type',
         default='tile', required=True)
-    # product_type = fields.Char('Product Type', required=True)
     delivered_products_ids = fields.One2many(
         'construction.product',
         'supplier_company_id',

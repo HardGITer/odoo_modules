@@ -14,8 +14,6 @@ class Product(models.Model):
     def _compute_type(self):
         for product in self:
             product.product_type = product.supplier_company_id.product_type
-            print(str(product.supplier_company_id.product_type))
-
 
     name = fields.Char('Product Name', required=True)
     technical_name = fields.Char('Product Technical Name', required=True)
