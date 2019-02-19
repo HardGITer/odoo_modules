@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<odoo>
+    <act_window id="action_construction_purchase" name="Construction Purchases" res_model="purchase.order" view_mode="tree,form" groups="base.group_user"/>
+
+    <menuitem id="menu_construction_purchase" name="Purchase" action="action_construction_purchase" parent="construction_app.construction_menu"/>
+</odoo>

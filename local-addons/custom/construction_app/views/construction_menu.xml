@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <odoo>
-    <menuitem id="construction_menu" name="Construction" sequence="2" groups="base.group_user"/>
+    <menuitem id="construction_menu" name="Construction" sequence="0" groups="base.group_user"/>
 
-    <act_window id="action_construction_product" name="Construction Products" res_model="construction.product" view_mode="tree,form" groups="base.group_user"/>
+    <act_window id="action_construction_product" name="Construction Products" res_model="product.product" view_mode="tree,form" groups="base.group_user"/>
 
     <menuitem id="menu_construction_product" name="Product" action="action_construction_product" parent="construction_menu" groups="base.group_user"/>
 

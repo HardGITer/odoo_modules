@@ -7,7 +7,7 @@ class TestProduct(TransactionCase):
     def setUp(self, *args, **kwargs):
         super(TestProduct, self).setUp(*args, **kwargs)
         admin_user = self.env.ref('base.user_admin')
-        self.Product = self.env['construction.product'].sudo(admin_user)
+        self.Product = self.env['product.product'].sudo(admin_user)
         self.product = self.Product.create({'name': 'test_name', 'technical_name': 'test_technical_name',
                                            'count_in_dock': 3})
 

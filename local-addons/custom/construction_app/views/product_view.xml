@@ -2,19 +2,19 @@
 <odoo>
     <record id="view_form_product" model="ir.ui.view">
         <field name="name">Product Form</field>
-        <field name="model">construction.product</field>
+        <field name="model">product.product</field>
         <field name="arch" type="xml">
             <form string="Product">
                 <header>
                     <button name="write_off_product" class="oe_highlight" string="Write Off Product" type="object"
                             groups="construction_app.construction_group_tile_seller,
-                             construction_app.construction_group_main_seller,
-                             construction_app.construction_group_manager" attrs="{'invisible': [('count_in_dock', '&lt;', 1)]}"/>
+                                    construction_app.construction_group_main_seller,
+                                    construction_app.construction_group_manager" attrs="{'invisible': [('count_in_dock', '&lt;', 1)]}"/>
                 </header>
                 <group name="group_top">
                     <group name="group_left">
-                        <field name="name"/>
-                        <field name="technical_name"/>
+                        <!--<field name="name"/>-->
+                        <!--<field name="technical_name"/>-->
                         <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         <field name="supplier_company_id"/>
                     </group>
@@ -27,9 +27,31 @@
         </field>
     </record>
 
+
+    <record model="ir.ui.view" id="view_product_product_form">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <header>
+                <button name="write_off_product" class="oe_highlight" string="Write Off Product" type="object"
+                        groups="construction_app.construction_group_tile_seller,
+                         construction_app.construction_group_main_seller,
+                         construction_app.construction_group_manager" attrs="{'invisible': [('count_in_dock', '&lt;', 1)]}"/>
+            </header>
+            <field name="default_code" position="after">
+                <field name="supplier_company_id" select="0"/>
+                <field name="product_type" />
+                <field name="count_in_dock"/>
+            </field>
+        </field>
+    </record>
+
+
     <record id="view_tree_product" model="ir.ui.view">
         <field name="name">Product List</field>
-        <field name="model">construction.product</field>
+        <field name="model">product.product</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -41,7 +63,7 @@
     </record>
 
         <record id="view_filter_product" model="ir.ui.view">
-        <field name="model">construction.product</field>
+        <field name="model">product.product</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="filter_only_dye" string="Only Dye" domain="[('product_type','=','dye')]"/>

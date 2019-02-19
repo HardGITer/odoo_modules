@@ -24,8 +24,6 @@
         <field name="name">Main Seller</field>
         <field name="category_id"
                ref="module_construction_category"/>
-        <!--<field name="implied_ids"-->
-               <!--eval="[(4, ref('construction_group_user'))]"/>-->
         <field name="implied_ids"
                eval="[(4, ref('base.group_user'))]"/>
         <field name="users"
@@ -46,7 +44,7 @@
 
     <record id="tile_seller_rule" model="ir.rule">
         <field name="name">Construction Tile Seller Access</field>
-        <field name="model_id" ref="construction_app.model_construction_product"/>
+        <field name="model_id" ref="construction_app.model_product_product"/>
         <field name="domain_force">
             [('product_type', '=', 'tile')]
         </field>

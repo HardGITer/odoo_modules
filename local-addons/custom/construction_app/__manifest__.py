@@ -3,7 +3,7 @@
 
     'author': "Matvey",
 
-    'depends': ['base'],
+    'depends': ['base', 'product'],
 
     'application': True,
 

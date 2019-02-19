@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_product_user,Product User Access,model_construction_product,construction_group_user,1,0,0,0
-access_product_tile_seller,Product Tile Seller Access,model_construction_product,construction_group_tile_seller,1,1,0,0
-access_product_main_seller,Product Main Seller Access,model_construction_product,construction_group_main_seller,1,1,1,0
-access_product_manager,Product Manager Access,model_construction_product,construction_group_manager,1,1,1,1
+access_product_user,Product User Access,model_product_product,construction_group_user,1,0,0,0
+access_product_tile_seller,Product Tile Seller Access,model_product_product,construction_group_tile_seller,1,1,0,0
+access_product_main_seller,Product Main Seller Access,model_product_product,construction_group_main_seller,1,1,1,0
+access_product_manager,Product Manager Access,model_product_product,construction_group_manager,1,1,1,1

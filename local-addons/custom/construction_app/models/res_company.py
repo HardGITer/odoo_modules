@@ -8,9 +8,9 @@ class Company(models.Model):
         [('tile', 'Tile'),
          ('heater', 'Heater'),
          ('dye', 'Dye')],
-        'Product Type',
+        'Supplier Specification',
         default='tile', required=True)
     delivered_products_ids = fields.One2many(
-        'construction.product',
+        'product.product',
         'supplier_company_id',
         string='Delivered Products')

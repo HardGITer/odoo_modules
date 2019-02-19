@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+construction_purchase_user,Purchase User,model_purchase_order,construction_app.construction_group_user,1,0,0,0
+construction_purchase_tile_seller,Purchase Tile Seller,model_purchase_order,construction_app.construction_group_tile_seller,1,0,0,0
+construction_purchase_main_seller,Purchase Main Seller,model_purchase_order,construction_app.construction_group_main_seller,1,0,0,0
+construction_purchase_manager,Purchase Manager,model_purchase_order,construction_app.construction_group_manager,1,1,1,1
