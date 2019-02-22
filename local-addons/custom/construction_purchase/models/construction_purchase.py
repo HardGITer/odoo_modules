@@ -1,26 +1,13 @@
-from odoo import models, api
-
+from odoo import models, api, _
+from odoo.exceptions import UserError
 
 class Purchase(models.Model):
     _inherit = 'purchase.order'
 
-    @api.model
-    def create(self, vals):
-        vals['order_line.product_qty'] = 5
+    @api.onchange('order_line')
+    def compute_product_count_in_dock(self):
         Product = self.env['product.product']
-        if vals.get('order_line.product_qty'):
-            product = Product.search([('product_id', '=', vals.get('order_line.product_id'))])
-            product.write({'count_in_dock': product.count_in_dock - vals['order_line.product_qty']})
-        return super(Purchase, self).create(vals)
-
-    @api.multi
-    def write(self, vals):
-        Product = self.env['product.product']
-        Purchase = self.env['purchase.order']
-        purchase = Purchase.search([('name', '=', vals.get('name'))])
-        old_product_count = purchase.order_line.product_qty
-        if vals.get('order_line.product_qty') != old_product_count:
-            difference = vals.get('order_line.product_qty') - old_product_count
-            product = Product.search([('product_id', '=', vals.get('order_line.product_id'))])
-            product.write({'count_in_dock': product.count_in_dock - difference})
-        return super(Purchase, self).write(vals)
+        for product in self.order_line:
+            if product.product_id.count_in_dock - product.product_qty < 0:
+                raise UserError(_("Count of this product in dock less then inputed value"))
+            product.product_id.write({'count_in_dock': product.product_id.count_in_dock - product.product_qty})
