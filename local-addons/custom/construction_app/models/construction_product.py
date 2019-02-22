@@ -14,11 +14,6 @@ class Product(models.Model):
         for product in self:
             product.product_type = product.supplier_company_id.product_type
 
-    # def _compute_count_in_dock(self):
-    #     for product in self:
-    #         for purchase in self.env['purchase.order.line'].search([('product_id.default_code', '=', product.default_code)]):
-    #             product.count_in_dock -= purchase.product_qty
-
     supplier_company_id = fields.Many2one('res.company', string="Supplier")
     product_type = fields.Char('Supplier Specification', compute='_compute_type', readonly=True, store=True)
     count_in_dock = fields.Float('Count Of Product In Dock', default=0)
